@@ -5,7 +5,6 @@
   "cordova": {
     "id": "jpush-phonegap-plugin",
     "platforms": [
-      "ios",
       "android"
     ]
   },
