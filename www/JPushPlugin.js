@@ -19,7 +19,10 @@ JPushPlugin.prototype.error_callback = function (msg) {
 }
 
 JPushPlugin.prototype.call_native = function (name, args, callback) {
-  ret = cordova.exec(callback, this.error_callback, 'JPushPlugin', name, args)
+  if(name === "onResume" && args === null)
+    ret = cordova.exec(callback, this.error_callback, 'JPushPlugin', name, [])
+  else
+    ret = cordova.exec(callback, this.error_callback, 'JPushPlugin', name, args)
   return ret
 }
 
