@@ -64,7 +64,8 @@ public class JPushPlugin extends CordovaPlugin {
                     "setTagsWithAlias",
                     "setSilenceTime",
                     "setStatisticsOpen",
-                    "stopPush"
+                    "stopPush",
+                    "goToSet"
             );
 
     private ExecutorService threadPool = Executors.newFixedThreadPool(1);
@@ -373,6 +374,20 @@ public class JPushPlugin extends CordovaPlugin {
         Context context = this.cordova.getActivity().getApplicationContext();
         String regID = JPushInterface.getRegistrationID(context);
         callbackContext.success(regID);
+    }
+
+    void goToSet(JSONArray data, CallbackContext callbackContext) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BASE) {  
+            // 进入设置系统应用权限界面  
+            Intent intent = new Intent(Settings.ACTION_SETTINGS);  
+            startActivity(intent);  
+            return;  
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {// 运行系统在5.x环境使用  
+            // 进入设置系统应用权限界面  
+            Intent intent = new Intent(Settings.ACTION_SETTINGS);  
+            startActivity(intent);  
+            return;  
+        } 
     }
 
     void onResume(JSONArray data, CallbackContext callbackContext) {
