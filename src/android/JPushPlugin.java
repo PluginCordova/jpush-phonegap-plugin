@@ -4,8 +4,10 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AppOpsManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.Build;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -377,17 +379,17 @@ public class JPushPlugin extends CordovaPlugin {
     }
 
     void goToSet(JSONArray data, CallbackContext callbackContext) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BASE) {  
-            // 进入设置系统应用权限界面  
-            Intent intent = new Intent(Settings.ACTION_SETTINGS);  
-            startActivity(intent);  
-            return;  
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {// 运行系统在5.x环境使用  
-            // 进入设置系统应用权限界面  
-            Intent intent = new Intent(Settings.ACTION_SETTINGS);  
-            startActivity(intent);  
-            return;  
-        } 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BASE) {
+            // 进入设置系统应用权限界面
+            Intent intent = new Intent(Settings.ACTION_SETTINGS);
+            cordova.startActivityForResult(this, intent, 101);
+            return;
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {// 运行系统在5.x环境使用
+            // 进入设置系统应用权限界面
+            Intent intent = new Intent(Settings.ACTION_SETTINGS);
+            cordova.startActivityForResult(this, intent, 101);
+            return;
+        }
     }
 
     void onResume(JSONArray data, CallbackContext callbackContext) {
